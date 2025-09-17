@@ -1,0 +1,23 @@
+# Use official Node.js 18 base image
+FROM node:18-bullseye
+
+# Enable pnpm via corepack
+RUN corepack enable
+
+# Create app directory
+WORKDIR /app
+
+# Copy files
+COPY . .
+
+# Install dependencies
+RUN pnpm install --frozen-lockfile
+
+# Build Affine
+RUN pnpm build
+
+# Expose the port
+EXPOSE 3000
+
+# Start Affine
+CMD ["pnpm", "start"]
